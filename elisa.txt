@@ -1,0 +1,12 @@
+Sub simple()
+    Dim i
+    Dim j
+    j = 1
+    For i = 50 To 130
+        If Cells(i, 11).Value <> Empty Then
+            Cells(49 + j, 15).Value = Cells(i, 11).Value
+            Cells(49 + j, 14).Value = Cells(i, 12).Value
+            j = j + 1
+        End If
+    Next i
+End Sub
