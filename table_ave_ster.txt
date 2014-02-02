@@ -1,0 +1,40 @@
+Sub table()
+    Dim Wrkrange As Variant
+    Dim i As Long   ' row counter
+    Dim j As Long   ' sample counter
+    Dim l As Long   ' treatment counter
+    Dim treatment(1 To 4) As Variant
+    Dim average(1 To 4) As Double
+    Dim ster(1 To 4) As Double
+    Dim WrkValue() As Double
+    With ActiveSheet
+        ReDim WrkValue(1 To 6)
+        Wrkrange = .UsedRange
+        j = 0
+        l = 1
+        treatment(l) = Cells(2, 5)
+        For i = 2 To UBound(Wrkrange)
+            If Cells(i, 5) = treatment(l) Then
+                j = j + 1
+                WrkValue(j) = Cells(i, 6)
+            Else
+                ReDim Preserve WrkValue(1 To j)
+                average(l) = WorksheetFunction.average(WrkValue)
+                ster(l) = WorksheetFunction.StDev(WrkValue) / j ^ (1 / 2)
+                l = l + 1
+                ReDim WrkValue(1 To 6)
+                treatment(l) = Cells(i, 5)
+                j = 1
+                WrkValue(j) = Cells(i, 6)
+            End If
+        Next i
+        ReDim Preserve WrkValue(1 To j)
+        average(l) = WorksheetFunction.average(WrkValue)
+        ster(l) = WorksheetFunction.StDev(WrkValue) / j ^ (1 / 2)
+        For i = 1 To l
+            Cells(UBound(Wrkrange) + 1 + i, 1) = treatment(i)
+            Cells(UBound(Wrkrange) + 1 + i, 2) = average(i)
+            Cells(UBound(Wrkrange) + 1 + i, 3) = ster(i)
+        Next i
+    End With
+End Sub
