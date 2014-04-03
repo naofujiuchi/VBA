@@ -3,9 +3,9 @@ Sub simple()
     Dim j
     j = 1
     For i = 50 To 130
-        If Cells(i, 10).Value <> "" Then
-            Cells(49 + j, 13).Value = Cells(i, 10).Value
-            Cells(49 + j, 12).Value = j
+        If Cells(i, 11).Value <> "" Then
+            Cells(49 + j, 14).Value = Cells(i, 11).Value
+            Cells(49 + j, 13).Value = j
             j = j + 1
         End If
     Next i
