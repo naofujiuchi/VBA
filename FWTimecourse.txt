@@ -3,7 +3,7 @@ Sub FWTimecourse()
     Dim j As Integer
     Dim k As Integer
     Dim l As Integer
-    For i = 0 To 11
+    For i = 0 To 15
         j = 8 + 3 * i
         For k = 0 To 9
             l = 8 + 2 * k
@@ -22,18 +22,21 @@ Sub setSlopeInterceptFreshweight()
     Dim EndColumn As Integer
     Dim exRange As Range
     Dim deRange As Range
-    Dim slope(12) As Double
-    Dim intercept(12) As Double
-    Dim w0(12) As Double
-    Dim w0p0(12) As Double
-    Dim w0p1(12) As Double
-    Dim w0p2(12) As Double
-    Dim orir0(12) As Double
-    Dim postr0(12) As Double
-    Dim duration(12) As Double
-    Dim treatment(12) As String
+    Dim slope(16) As Double
+    Dim intercept(16) As Double
+    Dim w0(16) As Double
+    Dim w0p0(16) As Double
+    Dim w0p1(16) As Double
+    Dim w0p2(16) As Double
+    Dim orir0(16) As Double
+    Dim postr0(16) As Double
+    Dim duration(16) As Double
+    Dim plantnumber(16) As Double
+    Dim leafnumber(16) As Double
+    Dim leafposition(16) As Double
+    Dim treatment(16) As String
     Dim NewWorkSheet As Worksheet
-    For i = 0 To 11
+    For i = 0 To 15
         j = 8 + 3 * i
         EndColumn = Cells(j, 8).End(xlToRight).Column
         Set exRange = Range(Cells(j + 1, 8), Cells(j + 1, EndColumn - 1))
@@ -46,33 +49,43 @@ Sub setSlopeInterceptFreshweight()
         w0p2(i) = Cells(j + 2, EndColumn + 1)
         orir0(i) = w0p0(i) / w0(i)
         postr0(i) = w0p1(i) / w0(i)
+        plantnumber(i) = Cells(j, 2)
+        leafnumber(i) = Cells(j, 3)
+        leafposition(i) = Cells(j, 4)
         treatment(i) = Cells(j, 5)
         duration(i) = Cells(j + 1, EndColumn - 1)
     Next i
     Set NewWorkSheet = Worksheets.Add()
     NewWorkSheet.Name = "Summary"
     With NewWorkSheet
-    Cells(1, 1) = "SampleNum"
-    Cells(1, 2) = "Treatment"
-    Cells(1, 3) = "w0"
-    Cells(1, 4) = "w0p1"
-    Cells(1, 5) = "w0p2"
-    Cells(1, 6) = "orir0"
-    Cells(1, 7) = "postr0"
-    Cells(1, 8) = "DryingDuration"
-    Cells(1, 9) = "Slope%"
-    Cells(1, 10) = "Intercept"
-        For i = 0 To 11
+    Cells(1, 1) = "ID0"
+    Cells(1, 2) = "PLANTID"
+    Cells(1, 3) = "MAINLEAF"
+    Cells(1, 4) = "LEAFPOSI"
+    Cells(1, 5) = "TREATMENT1"
+    Cells(1, 6) = "FW0"
+    Cells(1, 7) = "FW0DRY"
+    Cells(1, 8) = "FW0CUT"
+    Cells(1, 9) = "RFW0MAX"
+    Cells(1, 10) = "RFW0MIN"
+    Cells(1, 11) = "DRYDURATION"
+    Cells(1, 12) = "DRYRATE"
+    Cells(1, 13) = "DRYINTERCEPT"
+        For i = 0 To 15
             Cells(i + 2, 1) = i + 1
-            Cells(i + 2, 2) = treatment(i)
-            Cells(i + 2, 3) = w0(i)
-            Cells(i + 2, 4) = w0p1(i)
-            Cells(i + 2, 5) = w0p2(i)
-            Cells(i + 2, 6) = orir0(i)
-            Cells(i + 2, 7) = postr0(i)
-            Cells(i + 2, 8) = duration(i)
-            Cells(i + 2, 9) = slope(i) * 100
-            Cells(i + 2, 10) = intercept(i)
+            Cells(i + 2, 2) = plantnumber(i)
+            Cells(i + 2, 3) = leafnumber(i)
+            Cells(i + 2, 4) = leafposition(i)
+            Cells(i + 2, 5) = treatment(i)
+            Cells(i + 2, 6) = w0(i)
+            Cells(i + 2, 7) = w0p1(i)
+            Cells(i + 2, 8) = w0p2(i)
+            Cells(i + 2, 9) = orir0(i)
+            Cells(i + 2, 10) = postr0(i)
+            Cells(i + 2, 11) = duration(i)
+            Cells(i + 2, 12) = slope(i) * 100
+            Cells(i + 2, 13) = intercept(i)
         Next i
     End With
 End Sub
+
