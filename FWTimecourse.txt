@@ -35,6 +35,7 @@ Sub setSlopeInterceptFreshweight()
     Dim leafnumber(16) As Double
     Dim leafposition(16) As Double
     Dim treatment(16) As String
+    Dim starttime(16) As String
     Dim NewWorkSheet As Worksheet
     For i = 0 To 15
         j = 8 + 3 * i
@@ -54,6 +55,7 @@ Sub setSlopeInterceptFreshweight()
         leafposition(i) = Cells(j, 4)
         treatment(i) = Cells(j, 5)
         duration(i) = Cells(j + 1, EndColumn - 1)
+        starttime(i) = Cells(j, 8) & ":" & Cells(j, 9)
     Next i
     Set NewWorkSheet = Worksheets.Add()
     NewWorkSheet.Name = "Summary"
@@ -71,6 +73,7 @@ Sub setSlopeInterceptFreshweight()
     Cells(1, 11) = "DRYDURATION"
     Cells(1, 12) = "DRYRATE"
     Cells(1, 13) = "DRYINTERCEPT"
+    Cells(1, 14) = "STARTTIME"
         For i = 0 To 15
             Cells(i + 2, 1) = i + 1
             Cells(i + 2, 2) = plantnumber(i)
@@ -85,6 +88,7 @@ Sub setSlopeInterceptFreshweight()
             Cells(i + 2, 11) = duration(i)
             Cells(i + 2, 12) = slope(i) * 100
             Cells(i + 2, 13) = intercept(i)
+            Cells(i + 2, 14) = starttime(i)
         Next i
     End With
 End Sub
